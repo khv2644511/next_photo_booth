@@ -1,27 +1,28 @@
+import Link from 'next/link';
+
 export default function Home() {
   return (
-    <main className="flex h-screen items-center justify-center bg-gray-100 p-5 sm:bg-red-100 md:bg-green-100 lg:bg-cyan-100 xl:bg-orange-100 2xl:bg-purple-100 dark:bg-gray-700">
-      <div className="flex w-full max-w-screen-sm flex-col gap-3 rounded-3xl bg-white p-5 shadow-lg dark:bg-gray-600 ">
-        {['hyeppy', 'Me', 'You', 'Yourself'].map((person, index) => (
-          <div
-            key="{index}"
-            className="group flex items-center gap-5 rounded-xl border-b-2  p-2.5 pb-5 last:border-0 last:pb-0"
-          >
-            <div className="btn" />
-            <span className="text-lg font-medium group-hover:text-red-400">
-              {person}
-            </span>
-            <input type="text" />
-
-            <a href="">tawilwind @layer link</a>
-
-            <div className="relative flex size-6 items-center justify-center rounded-full bg-red-500 text-white">
-              <span>{index}</span>
-              <div className="absolute size-6 animate-ping rounded-full bg-red-500" />
-            </div>
-          </div>
-        ))}
+    <div className="flex flex-col items-center justify-center min-h-screen p-6">
+      <div className="my-auto flex flex-col items-center gap-2 *:font-medium">
+        <span className="text-9xl">🥕</span>
+        <h1 className="text-4xl">당근</h1>
+        <h2 className="text-2xl">당근 마겟에 어서오세요!</h2>
       </div>
-    </main>
+
+      <div className="flex flex-col items-center gap-3 w-full">
+        <Link
+          href="/create-account"
+          className="w-full bg-orange-500 text-white text-lg font-medium py-2.5 rounded-md text-center hover:bg-orange-400 transition-colors"
+        >
+          시작하기
+        </Link>
+        <div className="flex gap-2">
+          <span>이미 계정이 있나요?</span>
+          <Link href="/login" className="hover:underline">
+            로그인
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 }
