@@ -11,7 +11,10 @@ export default function Home() {
             <span className="text-lg font-medium group-hover:text-red-400">
               {person}
             </span>
+            <input type="text" />
+
             <a href="">tawilwind @layer link</a>
+
             <div className="relative flex size-6 items-center justify-center rounded-full bg-red-500 text-white">
               <span>{index}</span>
               <div className="absolute size-6 animate-ping rounded-full bg-red-500" />
