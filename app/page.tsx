@@ -7,10 +7,11 @@ export default function Home() {
             key="{index}"
             className="group flex items-center gap-5 rounded-xl border-b-2  p-2.5 pb-5 last:border-0 last:pb-0"
           >
-            <div className="size-10 rounded-full bg-blue-400" />
+            <div className="btn" />
             <span className="text-lg font-medium group-hover:text-red-400">
               {person}
             </span>
+            <a href="">tawilwind @layer link</a>
             <div className="relative flex size-6 items-center justify-center rounded-full bg-red-500 text-white">
               <span>{index}</span>
               <div className="absolute size-6 animate-ping rounded-full bg-red-500" />
