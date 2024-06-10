@@ -4,7 +4,8 @@ import FormButton from '@/components/button';
 import Input from '@/components/input';
 import SocialLogin from '@/components/social-login';
 import { useFormState, useFormStatus } from 'react-dom';
-import { handleForm } from './action';
+import { login } from './action';
+import { PASSWORD_MIN_LENGTH } from '../lib/constants';
 
 export default function Login() {
   // ** 'use server'는 cleint 컴포넌트 내에서 인라인으로 작성할 수 없다.
@@ -25,9 +26,7 @@ export default function Login() {
   // state는 action(handleForm)의 return 값이 된다.
   // action은 handleForm을 실행시킨다.
 
-  const [state, action] = useFormState(handleForm, {
-    potato: 1,
-  } as any);
+  const [state, action] = useFormState(login, null);
 
   // ** useFormStatus() => pending 상태에 따라 버튼 컨트롤하기
   // pending, data, action, method 객체를 가지며,
@@ -42,12 +41,20 @@ export default function Login() {
       </div>
 
       <form action={action} className="flex flex-col gap-3">
-        <Input name="email" type="email" placeholder="Email" required />
+        <Input
+          name="email"
+          type="email"
+          placeholder="Email"
+          required
+          errors={state?.fieldErrors.email}
+        />
         <Input
           name="password"
           type="password"
           placeholder="password"
           required
+          minLength={PASSWORD_MIN_LENGTH}
+          errors={state?.fieldErrors.password}
         />
         <FormButton text={'Log in'} />
         {/* <button className="primary-btn h-10">Create account</button> */}
