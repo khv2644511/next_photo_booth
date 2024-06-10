@@ -42,19 +42,12 @@ export default function Login() {
       </div>
 
       <form action={action} className="flex flex-col gap-3">
-        <FormInput
-          name="email"
-          type="email"
-          placeholder="Email"
-          required
-          errors={[]}
-        />
+        <FormInput name="email" type="email" placeholder="Email" required />
         <FormInput
           name="password"
           type="password"
           placeholder="password"
           required
-          errors={[state.error ?? []]}
         />
         <FormButton text={'Log in'} />
         {/* <button className="primary-btn h-10">Create account</button> */}
