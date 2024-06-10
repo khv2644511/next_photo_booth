@@ -1,16 +1,33 @@
+'use client';
+
 import FormButton from '@/components/form-btn';
 import FormInput from '@/components/form-input';
 import SocialLogin from '@/components/social-login';
 import { useFormState, useFormStatus } from 'react-dom';
+import { handleForm } from './action';
 
 export default function Login() {
-  const handleForm = async (formData: FormData) => {
-    'use server';
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-    console.log('logged in!');
-    // console.log(formData.get('email'), formData.get('password'));
-    // console.log('I run in the server');
-  };
+  // ** 'use server'는 cleint 컴포넌트 내에서 인라인으로 작성할 수 없다.
+  // 따라서 action.ts 파일로 분리시킨다.
+  // const handleForm = async (formData: FormData) => {
+  //   'use server';
+  //   await new Promise((resolve) => setTimeout(resolve, 5000));
+  //   console.log('logged in!');
+
+  //   return {
+  //     error: 'wrong password',
+  //   };
+  // };
+
+  // ** useFormState
+  //  결과를 알고 싶은 action을 인자로 넘겨줘야 한다.
+  // state, action 받는데,
+  // state는 action(handleForm)의 return 값이 된다.
+  // action은 handleForm을 실행시킨다.
+
+  const [state, action] = useFormState(handleForm, {
+    potato: 1,
+  } as any);
 
   // ** useFormStatus() => pending 상태에 따라 버튼 컨트롤하기
   // pending, data, action, method 객체를 가지며,
@@ -24,7 +41,7 @@ export default function Login() {
         <h2 className="text-xl">Login in with email and password.</h2>
       </div>
 
-      <form action={handleForm} className="flex flex-col gap-3">
+      <form action={action} className="flex flex-col gap-3">
         <FormInput
           name="email"
           type="email"
@@ -37,7 +54,7 @@ export default function Login() {
           type="password"
           placeholder="password"
           required
-          errors={[]}
+          errors={[state.error ?? []]}
         />
         <FormButton text={'Log in'} />
         {/* <button className="primary-btn h-10">Create account</button> */}
