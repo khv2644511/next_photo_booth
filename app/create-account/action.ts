@@ -1,6 +1,10 @@
 'use server';
 import { z } from 'zod';
 
+const passwordRegex = new RegExp(
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).+$/,
+);
+
 const checkUsername = (username: string) => !username.includes('potato');
 
 const checkPasswords = ({
@@ -19,11 +23,20 @@ const fomrSchema = z
         required_error: 'Where is my username?',
       })
       .min(3, 'too short!!!!!')
-      .max(10, 'That is too looooong')
+      //   .max(10, 'That is too looooong')
+      .trim()
+      .toLowerCase()
+      .transform((username) => '🧐')
       .refine(checkUsername, 'No potatos allowed!'),
-    email: z.string().email(),
-    password: z.string().min(10),
-    confirm_password: z.string().min(10),
+    email: z.string().email().toLowerCase(),
+    password: z
+      .string()
+      .min(4)
+      .regex(
+        passwordRegex,
+        'A password must have lowercase, UPPERCASE, a number special charactor',
+      ),
+    confirm_password: z.string().min(4),
   })
   .refine(checkPasswords, {
     message: 'Both password sould be same!',
@@ -33,7 +46,7 @@ const fomrSchema = z
 // 마지막 refine 함수는 form 객체 전체에 대한 유효성을 검사해,
 // 모든 데이터를 받을 수 있다(따라서 password, confirm_password 인자를 모두 받을 수 있다.)
 // 이때, form에 대한 에러메세지는 fieldError가 아닌 formError에 들어가 화면에 보이지 않는다.
-// 이를 해결하기 위해, path로 에러가 보여질 위치를 작성할 수 있다.
+// 이를 해결하기 위해, path에 필드 이름을 작성해서 에러가 보여질 위치(필드)를 지정할 수 있다.
 
 export async function createAccount(prevState: any, formData: FormData) {
   const data = {
@@ -54,9 +67,11 @@ export async function createAccount(prevState: any, formData: FormData) {
 
   // safeParse는 parse와 달리 에러를 던지지 않음
   const result = fomrSchema.safeParse(data);
-  console.log(result); // { success: false, error: [Getter] }
+  //   console.log(result); // { success: false, error: [Getter] }
   if (!result.success) {
     console.log(result.error.flatten());
     return result.error.flatten();
+  } else {
+    console.log(result.data);
   }
 }
