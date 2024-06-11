@@ -2,12 +2,55 @@
 
 import { z } from 'zod';
 import validator from 'validator';
+import { redirect } from 'next/navigation';
 
-const phoneSchema = z.string().trim().refine(validator.isMobilePhone);
+const phoneSchema = z
+  .string()
+  .trim()
+  .refine(
+    (phone) => validator.isMobilePhone(phone, 'ko-KR'),
+    'Wrong phone format',
+  );
+
+//   .refine(validator.isMobilePhone);
 
 const tokenSchema = z.coerce.number().min(100000).max(999999);
 
-export async function smsLogin(prevState: any, formData: FormData) {
-  console.log(typeof formData.get('token')); // strinf
-  console.log(typeof tokenSchema.parse(formData.get('token'))); // number
+interface ActionState {
+  token: boolean;
+}
+
+export async function smsLogIn(prevState: ActionState, formData: FormData) {
+  //   console.log(typeof formData.get('token')); // strinf
+  //   console.log(typeof tokenSchema.parse(formData.get('token'))); // number
+  console.log(prevState);
+
+  const phone = formData.get('phone');
+  const token = formData.get('token');
+  if (!prevState.token) {
+    const result = phoneSchema.safeParse(phone);
+    if (!result.success) {
+      console.log(result.error.flatten());
+      // state를 return함
+      return {
+        token: false,
+        error: result.error.flatten(),
+      };
+    } else {
+      return {
+        token: true,
+      };
+    }
+  } else {
+    const result = tokenSchema.safeParse(token);
+    if (!result.success) {
+      return {
+        token: true,
+        // return the errors
+        error: result.error.flatten(),
+      };
+    } else {
+      redirect('/');
+    }
+  }
 }

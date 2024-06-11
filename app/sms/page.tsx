@@ -4,10 +4,16 @@ import Button from '@/components/button';
 import Input from '@/components/input';
 import SocialLogin from '@/components/social-login';
 import { useFormState } from 'react-dom';
-import { smsLogin } from './action';
+import { smsLogIn } from './action';
+
+const initialState = {
+  token: false,
+  error: undefined,
+};
 
 export default function SMSLogin() {
-  const [state, dispatch] = useFormState(smsLogin, null);
+  const [state, dispatch] = useFormState(smsLogIn, initialState);
+
   return (
     <div className="flex flex-col gap-10 py-8 px-6">
       <div className="flex flex-col gap-2 *:font-medium">
@@ -16,16 +22,25 @@ export default function SMSLogin() {
       </div>
 
       <form action={dispatch} className="flex flex-col gap-3">
-        <Input name="phone" type="text" placeholder="Phone number " required />
-        <Input
-          name="token"
-          type="number"
-          placeholder="Verification code"
-          required
-          minLength={100000}
-          maxLength={999999}
-        />
-        <Button text={'Verify'} />
+        {state.token ? (
+          <Input
+            name="token"
+            type="number"
+            placeholder="Verification code"
+            required
+            minLength={100000}
+            maxLength={999999}
+          />
+        ) : (
+          <Input
+            name="phone"
+            type="text"
+            placeholder="Phone number "
+            required
+            errors={state.error?.formErrors}
+          />
+        )}
+        <Button text={state.token ? 'Verify Token' : 'Send Verification SMS'} />
         {/* <button className="primary-btn h-10">Create account</button> */}
       </form>
     </div>
