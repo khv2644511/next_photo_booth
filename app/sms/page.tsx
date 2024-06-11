@@ -16,17 +16,14 @@ export default function SMSLogin() {
       </div>
 
       <form action={dispatch} className="flex flex-col gap-3">
-        <Input
-          name="phone"
-          type="number"
-          placeholder="Phone number "
-          required
-        />
+        <Input name="phone" type="text" placeholder="Phone number " required />
         <Input
           name="token"
           type="number"
           placeholder="Verification code"
           required
+          minLength={100000}
+          maxLength={999999}
         />
         <Button text={'Verify'} />
         {/* <button className="primary-btn h-10">Create account</button> */}
