@@ -5,8 +5,44 @@ import {
   PASSWORD_REGEX,
   PASSWORD_REGEX_ERROR,
 } from '../lib/constants';
+import db from '../lib/db';
 
 const checkUsername = (username: string) => !username.includes('potato');
+
+const checkUniqueUsername = async (username: string) => {
+    // select를 안쓰면 모든 user 정보를 불러옴
+    // select를 통해서 필요한 user의 키값만 받아오도록 설정할 수 있다.
+  const user = await db.user.findUnique({
+    where: {
+      username : username
+    },
+    select: {
+      id : true
+    }
+  })
+  // if (user) {
+    //   return false
+    // } else {
+      //   return true
+      // }
+      //  ==> 아래처럼 변경 가능
+      return !Boolean(user) // 이미 사용되고 있는 username은 사용자에게 에러를 보냄
+} 
+
+const checkUniqueEmail = async (email: string) => {
+  // select를 안쓰면 모든 user 정보를 불러옴
+  // select를 통해서 필요한 user의 키값만 받아오도록 설정할 수 있다.
+  const user = await db.user.findUnique({
+    where: {
+      email : email
+    },
+    select: {
+      id : true
+    }
+  })
+  // Boolean(user) === false
+  return !Boolean(user) // 이미 사용되고 있는 username은 사용자에게 에러를 보냄
+} 
 
 const checkPasswords = ({
   password,
@@ -25,13 +61,14 @@ const fomrSchema = z
       })
       .trim()
       .toLowerCase()
-      .transform((username) => '🧐')
-      .refine(checkUsername, 'No potatos allowed!'),
-    email: z.string().email().toLowerCase(),
+      // .transform((username) => '🧐')
+      .refine(checkUsername, 'No potatos allowed!')
+      .refine(checkUniqueUsername, "This username is already taken"),
+    email: z.string().email().toLowerCase().refine(checkUniqueEmail, 'There is an account already registered with that email'),
     password: z
       .string()
-      .min(PASSWORD_MIN_LENGTH)
-      .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
+      .min(PASSWORD_MIN_LENGTH),
+      // .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
     confirm_password: z.string().min(PASSWORD_MIN_LENGTH),
   })
   .refine(checkPasswords, {
@@ -62,12 +99,44 @@ export async function createAccount(prevState: any, formData: FormData) {
   //   }
 
   // safeParse는 parse와 달리 에러를 던지지 않음
-  const result = fomrSchema.safeParse(data);
+  // database 작업을 하고 있기 떄문에 함수들에 await를 넣어줘야한다.
+  const result = await fomrSchema.safeParseAsync(data);
   //   console.log(result); // { success: false, error: [Getter] }
   if (!result.success) {
     console.log(result.error.flatten());
     return result.error.flatten();
   } else {
+    // const user = await db.user.findUnique({
+    //   where: {
+    //     username: result.data.username
+    //   },
+
+    //   select: {
+    //     id: true
+    //   }
+    // })
+    // if (user) {
+    //   // show an error
+    // }
+
+    const userEmail = await db.user.findUnique({
+      where: {
+        email : result.data.email
+      },
+      select: {
+        id: true
+      }
+    })
+    if (userEmail) {
+      // show an error th the user
+    }
+    console.log(user)
+    // check if username is taken
+    // checi if the email is already used
+    // hash password
+    // save the user to db
+    // log the user in
+    // redirect '/home'
     console.log(result.data);
   }
 }
