@@ -6,43 +6,46 @@ import {
   PASSWORD_REGEX_ERROR,
 } from '../lib/constants';
 import db from '../lib/db';
+import bcrypt from 'bcrypt';
 
 const checkUsername = (username: string) => !username.includes('potato');
 
+// check if username is taken
 const checkUniqueUsername = async (username: string) => {
-    // select를 안쓰면 모든 user 정보를 불러옴
-    // select를 통해서 필요한 user의 키값만 받아오도록 설정할 수 있다.
+  // select를 안쓰면 모든 user 정보를 불러옴
+  // select를 통해서 필요한 user의 키값만 받아오도록 설정할 수 있다.
   const user = await db.user.findUnique({
     where: {
-      username : username
+      username: username,
     },
     select: {
-      id : true
-    }
-  })
+      id: true,
+    },
+  });
   // if (user) {
-    //   return false
-    // } else {
-      //   return true
-      // }
-      //  ==> 아래처럼 변경 가능
-      return !Boolean(user) // 이미 사용되고 있는 username은 사용자에게 에러를 보냄
-} 
+  //   return false
+  // } else {
+  //   return true
+  // }
+  //  ==> 아래처럼 변경 가능
+  return !Boolean(user); // 이미 사용되고 있는 username은 사용자에게 에러를 보냄
+};
 
+// checi if the email is already used
 const checkUniqueEmail = async (email: string) => {
   // select를 안쓰면 모든 user 정보를 불러옴
   // select를 통해서 필요한 user의 키값만 받아오도록 설정할 수 있다.
   const user = await db.user.findUnique({
     where: {
-      email : email
+      email: email,
     },
     select: {
-      id : true
-    }
-  })
+      id: true,
+    },
+  });
   // Boolean(user) === false
-  return !Boolean(user) // 이미 사용되고 있는 username은 사용자에게 에러를 보냄
-} 
+  return !Boolean(user); // 이미 사용되고 있는 username은 사용자에게 에러를 보냄
+};
 
 const checkPasswords = ({
   password,
@@ -63,12 +66,17 @@ const fomrSchema = z
       .toLowerCase()
       // .transform((username) => '🧐')
       .refine(checkUsername, 'No potatos allowed!')
-      .refine(checkUniqueUsername, "This username is already taken"),
-    email: z.string().email().toLowerCase().refine(checkUniqueEmail, 'There is an account already registered with that email'),
-    password: z
+      .refine(checkUniqueUsername, 'This username is already taken'),
+    email: z
       .string()
-      .min(PASSWORD_MIN_LENGTH),
-      // .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
+      .email()
+      .toLowerCase()
+      .refine(
+        checkUniqueEmail,
+        'There is an account already registered with that email',
+      ),
+    password: z.string().min(PASSWORD_MIN_LENGTH),
+    // .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
     confirm_password: z.string().min(PASSWORD_MIN_LENGTH),
   })
   .refine(checkPasswords, {
@@ -106,37 +114,23 @@ export async function createAccount(prevState: any, formData: FormData) {
     console.log(result.error.flatten());
     return result.error.flatten();
   } else {
-    // const user = await db.user.findUnique({
-    //   where: {
-    //     username: result.data.username
-    //   },
-
-    //   select: {
-    //     id: true
-    //   }
-    // })
-    // if (user) {
-    //   // show an error
-    // }
-
-    const userEmail = await db.user.findUnique({
-      where: {
-        email : result.data.email
+    // hash password
+    // 데이터베이스가 해킹당하면 비밀번호가 유출되기 때문에 hash를 사용함
+    const hashedPassword = await bcrypt.hash(result.data.password, 12); // 해싱 알고리즘 12번 실행 옵션
+    console.log(hashedPassword);
+    // save the user to db
+    const user = await db.user.create({
+      data: {
+        username: result.data.username,
+        email: result.data.email,
+        password: hashedPassword,
       },
       select: {
-        id: true
-      }
-    })
-    if (userEmail) {
-      // show an error th the user
-    }
-    console.log(user)
-    // check if username is taken
-    // checi if the email is already used
-    // hash password
-    // save the user to db
+        id: true,
+      },
+    });
+    console.log(user);
     // log the user in
     // redirect '/home'
-    console.log(result.data);
   }
 }
