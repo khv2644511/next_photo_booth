@@ -6,6 +6,7 @@ import {
   PASSWORD_REGEX,
   PASSWORD_REGEX_ERROR,
 } from '../lib/constants';
+import { redirect } from 'next/navigation';
 
 const formSchema = z.object({
   email: z.string().email().toLowerCase(),
@@ -29,6 +30,8 @@ export const login = async (prevState: any, formData: FormData) => {
     return result.error.flatten();
   } else {
     console.log(result.data);
+    redirect('/home');
+    
   }
 
   // return {

@@ -7,6 +7,8 @@ import {
 } from '../lib/constants';
 import db from '../lib/db';
 import bcrypt from 'bcrypt';
+import { getIronSession } from 'iron-session';
+import { cookies } from 'next/headers';
 
 const checkUsername = (username: string) => !username.includes('potato');
 
@@ -97,7 +99,7 @@ export async function createAccount(prevState: any, formData: FormData) {
     confirm_password: formData.get('confirm_password'),
   };
 
-  //   console.log(data);
+  console.log('data', data);
 
   // parse는 에러를 throw하기 때문에 try,catch를 사용하지 않으면 에러화면이 뜨게됨
   //   try {
@@ -117,6 +119,7 @@ export async function createAccount(prevState: any, formData: FormData) {
     // hash password
     // 데이터베이스가 해킹당하면 비밀번호가 유출되기 때문에 hash를 사용함
     const hashedPassword = await bcrypt.hash(result.data.password, 12); // 해싱 알고리즘 12번 실행 옵션
+    console.log(cookies());
     console.log(hashedPassword);
     // save the user to db
     const user = await db.user.create({
@@ -129,8 +132,11 @@ export async function createAccount(prevState: any, formData: FormData) {
         id: true,
       },
     });
-    console.log(user);
     // log the user in
+    getIronSession(cookies(), {
+      cookieName: 'delicious-karrot',
+      password: '',
+    });
     // redirect '/home'
   }
 }
