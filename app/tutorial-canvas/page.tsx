@@ -57,7 +57,19 @@ export default function Canvas() {
       // Draw frame
       ctx.drawImage(document.getElementById('frame'), 0, 0, 132, 150);
       // Draw slice
-      ctx.drawImage(document.getElementById('source'), 30, 30, 70, 90);
+      // ctx.drawImage(document.getElementById('source'), 30, 30, 70, 90);
+      // ctx.drawImage(document.getElementById('source'), 0, 0, 300, 227);
+      ctx.drawImage(
+        document.getElementById('source'),
+        33,
+        71,
+        104,
+        124,
+        30,
+        30,
+        70,
+        94,
+      );
     }
 
     draw();
