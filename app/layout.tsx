@@ -17,9 +17,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} bg-neutral-900 text-white h-dvh w-dvw`}
-      >
+      {/* bg-neutral-900 */}
+      <body className={`${inter.className} text-white h-dvh w-dvw`}>
         <NextUIProvider>{children}</NextUIProvider>
       </body>
     </html>
