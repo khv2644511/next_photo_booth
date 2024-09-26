@@ -11,6 +11,13 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from '@nextui-org/modal';
 // import {
 //   Dialog,
 //   DialogContent,
@@ -81,6 +88,19 @@ const Calendar: React.FC = () => {
     }
   };
 
+  // let imageCapture;
+
+  // return navigator.mediaDevices
+  //   .getUserMedia({ video: true })
+  //   .then((mediaStream) => {
+  //     document.createElement('video').srcObject = mediaStream;
+
+  //     const track = mediaStream.getVideoTracks()[0];
+  //     imageCapture = new ImageCapture(track);
+
+  //     return imageCapture.getPhotoCapabilities();
+  //   });
+
   return (
     <div>
       <div className="flex w-full px-10 justify-start items-start gap-8">
@@ -98,12 +118,12 @@ const Calendar: React.FC = () => {
             {currentEvents.length > 0 &&
               currentEvents.map((event: EventApi) => (
                 <li
-                  className="border border-gray-200 shadow px-4 py-2 rounded-md text-blue-800"
+                  className="border border-gray-200 shadow px-4 py-2 rounded-md text-pink-300"
                   key={event.id}
                 >
                   {event.title}
                   <br />
-                  <label className="text-slate-950">
+                  <label className="text-slate-100">
                     {formatDate(event.start!, {
                       year: 'numeric',
                       month: 'short',
@@ -115,7 +135,6 @@ const Calendar: React.FC = () => {
               ))}
           </ul>
         </div>
-
         <div className="w-9/12 mt-8">
           <FullCalendar
             height={'85vh'}
@@ -143,29 +162,31 @@ const Calendar: React.FC = () => {
       </div>
 
       {/* Dialog for adding new events */}
-      {/* <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Add New Event Details</DialogTitle>
-          </DialogHeader>
-          <form className="space-x-5 mb-4" onSubmit={handleAddEvent}>
-            <input
-              type="text"
-              placeholder="Event Title"
-              value={newEventTitle}
-              onChange={(e) => setNewEventTitle(e.target.value)} // Update new event title as the user types.
-              required
-              className="border border-gray-200 p-3 rounded-md text-lg"
-            />
-            <button
-              className="bg-green-500 text-white p-3 mt-5 rounded-md"
-              type="submit"
-            >
-              Add
-            </button>{' '}
-          </form>
-        </DialogContent>
-      </Dialog> */}
+      <Modal isOpen={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <ModalContent>
+          <ModalHeader className="text-black">
+            Add New Event Details
+          </ModalHeader>
+          <ModalBody>
+            <form className="space-x-5 mb-4" onSubmit={handleAddEvent}>
+              {/* <input
+                type="text"
+                placeholder="Event Title"
+                value={newEventTitle}
+                onChange={(e) => setNewEventTitle(e.target.value)} // Update new event title as the user types.
+                required
+                className="border border-gray-200 p-3 rounded-md text-lg text-black"
+              /> */}
+              <button
+                className="bg-green-500 text-white p-3 mt-5 rounded-md"
+                type="submit"
+              >
+                Add
+              </button>
+            </form>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
       {/* Button to submit new event */}
     </div>
   );

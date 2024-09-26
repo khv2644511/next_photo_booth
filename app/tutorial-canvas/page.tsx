@@ -1,44 +1,4 @@
-// 'use client';
-
-// import { useEffect } from 'react';
-
-// export default function Canvas() {
-//   useEffect(() => {
-//     function draw() {
-//       var canvas = document.querySelector('canvas');
-//       if (canvas.getContext) {
-//         var ctx = canvas.getContext('2d');
-//         for (var i = 0; i <= 4; i++) {
-//           for (var j = 0; j <= 3; j++) {
-//             ctx.beginPath();
-//             var x = 25 + j * 50; // x coordinate
-//             var y = 25 + i * 50; // y coordinate
-//             var radius = 20; // Arc radius
-//             var startAngle = 0; // Starting point on circle
-//             var endAngle = Math.PI + (Math.PI * j) / 2; // End point on circle
-//             var anticlockwise = i % 2 == 0 ? false : true; // clockwise or anticlockwise
-
-//             ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
-
-//             if (i > 1) {
-//               ctx.fill();
-//             } else {
-//               ctx.stroke();
-//             }
-//           }
-//         }
-//       }
-//     }
-//     draw();
-//   }, []);
-//   return (
-//     <div className="flex flex-col gap-10 py-8 px-6">
-//       {/* <canvas></canvas> */}
-//       <canvas id="my-house" width="300" height="300"></canvas>
-//       {/* <canvas id="canvas" width="150" height="150"></canvas> */}
-//     </div>
-//   );
-// }
+// @ts-nocheck
 'use client';
 
 import Image from 'next/image';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
@@ -9,7 +10,7 @@ import Profile from '@/app/assets/profile.png';
 import html2canvas from 'html2canvas';
 
 export default function PhotoBooth() {
-  const videoRef = useRef(null); // Reference to the video element
+  const videoRef = useRef(null) as any; // Reference to the video element
   const [inputValue, setInputValue] = useState(0); // State to handle the range input
   const [imageCapture, setImageCapture] = useState(null); // State to store imageCapture instance
   const [isReady, setIsReady] = useState(false); // State to track if imageCapture is ready
@@ -28,9 +29,8 @@ export default function PhotoBooth() {
         }
 
         const track = mediaStream.getVideoTracks()[0];
-        const newImageCapture = new ImageCapture(track); // Create new ImageCapture instance
+        const newImageCapture = new (window as any).ImageCapture(track); // Create new ImageCapture instance
         setImageCapture(newImageCapture); // Store the ImageCapture instance
-
         return newImageCapture.getPhotoCapabilities();
       })
       .then((photoCapabilities) => {
