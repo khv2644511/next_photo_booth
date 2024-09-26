@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Button } from '@nextui-org/react';
 import Image from 'next/image';
 import ShipImage from '@/app/assets/ship.png';
+import FlowerFrame from '@/app/assets/flowerFrame.png';
+import Profile from '@/app/assets/profile.png';
 import html2canvas from 'html2canvas';
 
 export default function PhotoBooth() {
@@ -108,8 +110,9 @@ export default function PhotoBooth() {
     });
   };
   return (
-    <div className="flex py-8 px-6">
-      <div className="w-80 flex flex-col justify-center self-center">
+    <div className="flex">
+      {/* <div className="w-full h-20 bg-black fixed bottom-0"></div> */}
+      <div className="w-80 flex flex-col justify-center self-center ml-10 mt-20">
         <input
           style={{ display: 'none' }}
           type="range"
@@ -143,15 +146,35 @@ export default function PhotoBooth() {
           혜빈이의 인생네컷
         </div> */}
         <div
-          className=" bg-red-100 canvas-container"
+          className=" bg-red-100 canvas-container relative"
           style={{ height: '228px', width: '320px' }}
         >
+          <Image
+            style={{ left: '28px', bottom: '-64px' }}
+            src={FlowerFrame}
+            height={383}
+            width={265}
+            alt="ship"
+            className="absolute rotate-90 "
+          />
           <canvas id="canvas1" width={320} height={228}></canvas>
         </div>
         <div
-          className="bg-red-100 canvas-container"
+          className="bg-red-100 canvas-container relative"
           style={{ height: '228px', width: '320px' }}
         >
+          <div className="absolute text-lg text-black left-40 top-10">
+            나랑 사진찍을래?ㅎ
+          </div>
+
+          <Image
+            style={{ left: '0', bottom: '0' }}
+            src={Profile}
+            height={383}
+            width={180}
+            alt="ship"
+            className="absolute"
+          />
           <canvas id="canvas2" width={320} height={228}></canvas>
         </div>
         <div
@@ -162,7 +185,7 @@ export default function PhotoBooth() {
             src={ShipImage}
             width={150}
             alt="ship"
-            className="absolute -bottom-20 -left-6"
+            className="absolute -bottom-20 -right-6"
           />
           <canvas id="canvas3" width={320} height={228}></canvas>
         </div>
