@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Button } from '@nextui-org/react';
 import Image from 'next/image';
 import ShipImage from '@/app/assets/ship.png';
+import html2canvas from 'html2canvas';
 
 export default function PhotoBooth() {
   const videoRef = useRef(null); // Reference to the video element
@@ -12,6 +13,7 @@ export default function PhotoBooth() {
   const [isReady, setIsReady] = useState(false); // State to track if imageCapture is ready
   const [capturedImg, setCapturedImg] = useState([]);
   const [count, setCount] = useState(1);
+  const container = useRef(null);
 
   useEffect(() => {
     // Access the video stream and set srcObject to the video element
@@ -70,78 +72,41 @@ export default function PhotoBooth() {
     setInputValue(e.target.value); // Update the input value when range slider changes
   }
 
-  //   useEffect(() => {
-  //     capturedImg.forEach((img, index) => {
-  //       console.log(img);
-  //       const newCanvas = document.createElement('canvas');
-  //       const container = document.querySelector('.canvas-container');
-  //       newCanvas.width = 300; // Set canvas width (adjust as needed)
-  //       newCanvas.height = 300; // Set canvas height (adjust as needed)
-  //       container.appendChild(newCanvas); // Add the new canvas to the container
-  //       const ctx = newCanvas.getContext('2d');
-
-  //       let ratio = Math.min(
-  //         newCanvas.width / img.width,
-  //         newCanvas.height / img.height,
-  //       );
-  //       let x = (newCanvas.width - img.width * ratio) / 2;
-  //       let y = (newCanvas.height - img.height * ratio) / 2;
-  //       ctx.clearRect(0, 0, newCanvas.width, newCanvas.height); // Clear the canvas before drawing
-  //       ctx.drawImage(
-  //         img,
-  //         0,
-  //         0,
-  //         img.width,
-  //         img.height,
-  //         x,
-  //         y,
-  //         img.width * ratio,
-  //         img.height * ratio,
-  //       );
-  //     });
-  //   }, [capturedImg]);
-
-  //   useEffect(() => {
-  //     console.log(capturedImg);
-  //   }, [capturedImg]);
   /* Utils */
   function drawCanvas(img) {
-    // setCapturedImg((prev) => [...prev, img]);
     console.log(img);
     // const container = document.querySelector('.canvas-container');
     const canvas = document.getElementById(`canvas${count}`);
-    // const container = document.querySelector('.canvas-container');
-    // const container = document.querySelector('.canvas-container');
 
-    // const canvas = document.createElement('canvas');
-    // const canvas = document.createElement('div');
-
-    // container.appendChild(canvas); // Add the new canvas to the container
-
-    // canvas.width = getComputedStyle(canvas).width.split('px')[0];
-    // canvas.height = getComputedStyle(canvas).height.split('px')[0];
-    canvas.width = 256;
-    canvas.height = 160;
-    let ratio = Math.min(img.width / img.height);
-    let x = (canvas.width - img.width * ratio) / 2;
-    let y = (canvas.height - img.height * ratio) / 2;
-    console.log('x', x, 'y', y);
-    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-    canvas.getContext('2d').drawImage(
-      img,
-      0,
-      0,
-      img.width,
-      img.height,
-      0,
-      0,
-      256,
-      160,
-      //   img.width * ratio,
-      //   img.height * ratio,
-    );
+    // 슬라이싱 좀 더 학습 필요함
+    canvas
+      .getContext('2d')
+      .drawImage(img, 100, 150, 1452, 1352, 0, 0, 320, 228);
   }
 
+  const dowonload = () => {
+    var divToCapture = container.current;
+
+    // Use html2canvas to capture the div as an image
+    html2canvas(divToCapture, {
+      useCORS: true, // Ensures cross-origin images load correctly
+      //   width: divToCapture.offsetWidth, // Use container's full width
+      //   height: divToCapture.offsetHeight, // Use container's full height
+      //   scrollX: 0, // Prevents capturing any scrolled positions
+      //   scrollY: 0, // Prevents capturing any scrolled positions
+    }).then(function (canvas) {
+      //   document.body.appendChild(canvas);
+
+      // Convert the canvas to a data URL
+      var imageData = canvas.toDataURL('image/jpeg');
+
+      // Create a link element and trigger a download
+      var link = document.createElement('a');
+      link.href = imageData;
+      link.download = 'output.jpg';
+      link.click();
+    });
+  };
   return (
     <div className="flex py-8 px-6">
       <div className="w-80 flex flex-col justify-center self-center">
@@ -153,39 +118,58 @@ export default function PhotoBooth() {
         />
         <video ref={videoRef} style={{ width: '100%', height: 'auto' }} />
         {/* Video element */}
-        <Button
-          onClick={onTakePhotoButtonClick}
-          disabled={!isReady}
-          className="bg-pink-400 my-5 text-white text-lg font-semibold font-mono w-1/2 mx-auto"
-        >
-          사진촬영
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            onClick={onTakePhotoButtonClick}
+            disabled={!isReady}
+            className="bg-pink-400 my-5 text-white text-lg font-semibold font-mono w-1/2 mx-auto"
+          >
+            사진촬영
+          </Button>
+          <Button
+            onClick={dowonload}
+            //   disabled={!isReady}
+            className="bg-pink-400 my-5 text-white text-lg font-semibold font-mono w-1/2 mx-auto"
+          >
+            Download
+          </Button>
+        </div>
       </div>
-      <div className=" w-80 h-4/5 bg-black mx-auto absolute left-1/3 p-8 flex flex-col gap-10">
+      <div
+        ref={container}
+        className="container w-auto h-full bg-black mx-auto absolute left-1/3 p-8 flex flex-col gap-10 overflow-hidden"
+      >
         {/* <div className="flex justify-center text-2xl font-bold -my-2.5 text-pink-500">
           혜빈이의 인생네컷
         </div> */}
-        <div className="w-full h-40 bg-red-100 canvas-container">
-          <canvas id="canvas1"></canvas>
+        <div
+          className=" bg-red-100 canvas-container"
+          style={{ height: '228px', width: '320px' }}
+        >
+          <canvas id="canvas1" width={320} height={228}></canvas>
         </div>
-        <div className="w-full h-40 bg-red-100 canvas-container">
-          <canvas id="canvas2"></canvas>
+        <div
+          className="bg-red-100 canvas-container"
+          style={{ height: '228px', width: '320px' }}
+        >
+          <canvas id="canvas2" width={320} height={228}></canvas>
         </div>
-        <div className="w-full h-40 bg-red-100 canvas-container relative">
+        <div
+          className="bg-red-100 canvas-container relative"
+          style={{ height: '228px', width: '320px' }}
+        >
           <Image
             src={ShipImage}
             width={150}
             alt="ship"
             className="absolute -bottom-20 -left-6"
           />
-          <canvas id="canvas3"></canvas>
+          <canvas id="canvas3" width={320} height={228}></canvas>
         </div>
         <div className="flex justify-center py-9 text-3xl">
-          혜빈이의 인생셋컷
+          혜빈이의 인생세컷
         </div>
       </div>
-
-      {/* Canvas to draw captured image */}
     </div>
   );
 }
