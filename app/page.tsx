@@ -5,10 +5,14 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6">
       <div className="my-auto flex flex-col items-center gap-2 *:font-medium *:text-black">
-        <span className="text-9xl">🥕🥕🥕</span>
-        <h1 className="text-4xl">Hi</h1>
-        <h2 className="text-2xl">Welcome to hyeppy's photo booth 😊;</h2>
-        <h2 className="text-2xl">Do you want to take photo with me? 📸;</h2>
+        <span className="text-8xl sm:text-9xl">🥕🥕🥕</span>
+        <h1 className="text-xl sm:text-4xl">Hi</h1>
+        <h2 className="text-md sm:text-2xl">
+          Welcome to hyeppy's photo booth 😊
+        </h2>
+        <h2 className="text-md sm:text-2xl">
+          Do you want to take photo with me? 📸
+        </h2>
       </div>
 
       <div className="flex flex-col items-center gap-3 w-full *:text-black">

@@ -94,8 +94,8 @@ export default function PhotoBooth() {
       useCORS: true, // Ensures cross-origin images load correctly
       //   width: divToCapture.offsetWidth, // Use container's full width
       //   height: divToCapture.offsetHeight, // Use container's full height
-      //   scrollX: 0, // Prevents capturing any scrolled positions
-      //   scrollY: 0, // Prevents capturing any scrolled positions
+      scrollX: 0, // Prevents capturing any scrolled positions
+      scrollY: 0, // Prevents capturing any scrolled positions
     }).then(function (canvas) {
       //   document.body.appendChild(canvas);
 
@@ -110,7 +110,7 @@ export default function PhotoBooth() {
     });
   };
   return (
-    <div className="flex">
+    <div className="flex flex-col self-center justify-center">
       {/* <div className="w-full h-20 bg-black fixed bottom-0"></div> */}
       <div className="w-80 flex flex-col justify-center self-center ml-10 mt-20">
         <input
@@ -140,41 +140,49 @@ export default function PhotoBooth() {
       </div>
       <div
         ref={container}
-        className="container w-auto h-full bg-black mx-auto absolute left-1/3 p-8 flex flex-col gap-10 overflow-hidden"
+        className="container top-1/2 left-0 
+        w-auto h-full bg-black mx-auto p-8 flex flex-col gap-10 overflow-hidden z-20"
       >
         {/* <div className="flex justify-center text-2xl font-bold -my-2.5 text-pink-500">
           혜빈이의 인생네컷
         </div> */}
         <div
-          className=" bg-red-100 canvas-container relative"
-          style={{ height: '228px', width: '320px' }}
+          className="bg-red-100 canvas-container relative after:content-[''] after:bg-flower-frame  after:absolute after:h-full after:w-full after:bg-contain after:top-0 after:rotate-180 after:z-0"
+          style={{
+            height: '228px',
+            width: '320px',
+            // backgroundImage: `url(${FlowerFrame.src})`,
+            // backgroundSize: 'contain',
+            // backgroundRepeat: 'no-repeat',
+          }}
         >
-          <Image
-            style={{ left: '28px', bottom: '-64px' }}
+          {/* <Image
+            // style={{ left: '28px', bottom: '-64px', height: ' auto' }}
             src={FlowerFrame}
-            height={383}
-            width={265}
+            // height={383}
+            // width={265}
             alt="ship"
             className="absolute rotate-90 "
-          />
+          /> */}
           <canvas id="canvas1" width={320} height={228}></canvas>
         </div>
         <div
-          className="bg-red-100 canvas-container relative"
+          className="bg-red-100 canvas-container relative after:content-[''] after:bg-profile-frame  after:absolute after:h-full after:w-full after:bg-contain after:bg-no-repeat after:top-0 after:z-0 before:content-['나랑사진찍을래?ㅎ'] before:w-full before:text-black before:text-xl before:absolute before:left-32 before:top-0 before:z-50"
+          //   className="bg-red-100 canvas-container relative"
           style={{ height: '228px', width: '320px' }}
         >
-          <div className="absolute text-lg text-black left-40 top-10">
+          {/* <div className="absolute text-lg text-black left-40 top-10">
             나랑 사진찍을래?ㅎ
-          </div>
+          </div> */}
 
-          <Image
+          {/* <Image
             style={{ left: '0', bottom: '0' }}
             src={Profile}
-            height={383}
+            // height={383}
             width={180}
             alt="ship"
             className="absolute"
-          />
+          /> */}
           <canvas id="canvas2" width={320} height={228}></canvas>
         </div>
         <div
