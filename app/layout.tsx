@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { NextUIProvider } from '@nextui-org/react';
+import Script from 'next/script';
 import Head from 'next/head';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -20,11 +21,12 @@ export default function RootLayout({
     <html lang="en">
       {/* bg-neutral-900 */}
       <Head>
-        <script
+        <Script
           src="https://cdn.jsdelivr.net/npm/eruda"
+          async
           // strategy="beforeInteractive"
-        ></script>
-        <script>eruda.init();</script>
+        ></Script>
+        <Script async>eruda.init();</Script>
       </Head>
       <body className={`${inter.className} text-white h-full w-dvw bg-red-100`}>
         <NextUIProvider>{children}</NextUIProvider>
