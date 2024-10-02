@@ -119,7 +119,11 @@ export default function PhotoBooth() {
           value={inputValue}
           onChange={handleRangeChange} // Handle the range change
         />
-        <video ref={videoRef} style={{ width: '100%', height: 'auto' }} />
+        <video
+          playsinline
+          ref={videoRef}
+          style={{ width: '100%', height: 'auto' }}
+        />
         {/* Video element */}
         <div className="flex gap-2">
           <Button
