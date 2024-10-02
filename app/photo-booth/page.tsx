@@ -140,6 +140,7 @@ export default function PhotoBooth() {
         <div className="flex gap-2">
           <Button
             onClick={onTakePhotoButtonClick}
+            onTouchStart={onTakePhotoButtonClick}
             disabled={!isReady}
             className="bg-pink-400 my-5 text-white text-lg font-semibold font-mono w-1/2 mx-auto"
           >
