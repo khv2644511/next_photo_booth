@@ -51,18 +51,21 @@ export default function PhotoBooth() {
   }
   // }, []);
 
+  const onTakePhotoButtonClickMobile = (e) => {
+    onTakePhotoButtonClick(e);
+  };
   function onTakePhotoButtonClick(e) {
     e.preventDefault();
 
     console.log('사진촬영버튼 클릭');
-    document.querySelector('#capture_btn').addEventListener(
-      'touchstart',
-      function () {
-        // some logic
-        console.log(capture_btn);
-      },
-      { passive: false },
-    ); // <-- mark the event listerner as NOT passive
+    // document.querySelector('#capture_btn').addEventListener(
+    //   'touchstart',
+    //   function () {
+    //     // some logic
+    //     console.log(capture_btn);
+    //   },
+    //   { passive: false },
+    // ); // <-- mark the event listerner as NOT passive
 
     console.log('imageCapture', imageCapture);
     if (imageCapture && isReady) {
@@ -157,8 +160,8 @@ export default function PhotoBooth() {
           <Button
             id="capture_btn"
             style={{ touchAction: 'none' }}
-            onClick={(e) => onTakePhotoButtonClick(e)}
-            // onTouchStart={() => onTakePhotoButtonClickMobile()}
+            // onClick={(e) => onTakePhotoButtonClick(e)}
+            onTouchStart={(e) => onTakePhotoButtonClickMobile(e)}
             disabled={!isReady}
             className="bg-pink-400 my-5 text-white text-lg font-semibold font-mono w-1/2 mx-auto"
           >
