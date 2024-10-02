@@ -18,7 +18,8 @@ export default function PhotoBooth() {
   const [count, setCount] = useState(1);
   const container = useRef(null);
 
-  useEffect(() => {
+  // useEffect(() => {
+  function fetchVideoAndPlay() {
     // Access the video stream and set srcObject to the video element
     navigator.mediaDevices
       .getUserMedia({ video: true })
@@ -44,7 +45,8 @@ export default function PhotoBooth() {
         setIsReady(true); // Enable the button when ready
       })
       .catch((error) => console.log('Error:', error.name || error));
-  }, []);
+  }
+  // }, []);
 
   function onTakePhotoButtonClick() {
     if (imageCapture && isReady) {
@@ -109,10 +111,19 @@ export default function PhotoBooth() {
       link.click();
     });
   };
+
+  function onButtonClick() {
+    // This will allow us to play video later...
+    videoRef.current.load();
+    fetchVideoAndPlay();
+  }
   return (
     <div className="flex flex-col self-center justify-center">
       {/* <div className="w-full h-20 bg-black fixed bottom-0"></div> */}
       <div className="w-80 flex flex-col justify-center self-center ml-10 mt-20">
+        <button className="text-black bg-red-500" onClick={onButtonClick}>
+          비디오 실행
+        </button>
         <input
           style={{ display: 'none' }}
           type="range"
