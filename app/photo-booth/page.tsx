@@ -19,6 +19,9 @@ export default function PhotoBooth() {
   const container = useRef(null);
 
   // useEffect(() => {
+
+  // })
+  // useEffect(() => {
   function fetchVideoAndPlay() {
     // Access the video stream and set srcObject to the video element
     navigator.mediaDevices
@@ -32,6 +35,7 @@ export default function PhotoBooth() {
         const track = mediaStream.getVideoTracks()[0];
         const newImageCapture = new (window as any).ImageCapture(track); // Create new ImageCapture instance
         setImageCapture(newImageCapture); // Store the ImageCapture instance
+        console.log('imageCapture ready', imageCapture);
         return newImageCapture.getPhotoCapabilities();
       })
       .then((photoCapabilities) => {
@@ -117,6 +121,7 @@ export default function PhotoBooth() {
     // This will allow us to play video later...
     videoRef.current.load();
     fetchVideoAndPlay();
+    console.log('fetchVideoAndPlay');
   }
   return (
     <div className="flex flex-col self-center justify-center">
