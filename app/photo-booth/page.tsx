@@ -68,7 +68,7 @@ export default function PhotoBooth() {
     // ); // <-- mark the event listerner as NOT passive
 
     console.log('imageCapture', imageCapture);
-    if (imageCapture && isReady) {
+    if (isReady) {
       imageCapture
         .takePhoto({ imageWidth: inputValue })
         .then((blob) => createImageBitmap(blob))
