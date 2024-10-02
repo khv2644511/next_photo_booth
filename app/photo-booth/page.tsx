@@ -35,7 +35,6 @@ export default function PhotoBooth() {
         const track = mediaStream.getVideoTracks()[0];
         const newImageCapture = new (window as any).ImageCapture(track); // Create new ImageCapture instance
         setImageCapture(newImageCapture); // Store the ImageCapture instance
-        console.log('imageCapture ready', imageCapture);
         return newImageCapture.getPhotoCapabilities();
       })
       .then((photoCapabilities) => {
@@ -56,6 +55,7 @@ export default function PhotoBooth() {
     console.log('사진촬영버튼 클릭');
     e.preventDefault();
 
+    console.log('imageCapture', imageCapture);
     if (imageCapture && isReady) {
       imageCapture
         .takePhoto({ imageWidth: inputValue })
