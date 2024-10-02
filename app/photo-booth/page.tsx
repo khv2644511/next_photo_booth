@@ -25,7 +25,7 @@ export default function PhotoBooth() {
   function fetchVideoAndPlay() {
     // Access the video stream and set srcObject to the video element
     navigator.mediaDevices
-      .getUserMedia({ video: true })
+      .getUserMedia({ video: true, facingMode: { exact: 'user' } })
       .then((mediaStream) => {
         if (videoRef.current) {
           videoRef.current.srcObject = mediaStream; // Set the video source to the media stream
