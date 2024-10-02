@@ -116,18 +116,6 @@ export default function PhotoBooth() {
         className="container top-1/2 left-0 
         w-auto h-full bg-black mx-auto p-8 flex flex-col gap-10 overflow-hidden z-20"
       >
-        {/* {url &&
-          url.map((el) => {
-            console.log(el);
-            return (
-              <div>
-                <img src={el} alt="Screenshot" />
-              </div>
-            );
-          })} */}
-        {/* <div className="flex justify-center text-2xl font-bold -my-2.5 text-pink-500">
-          혜빈이의 인생네컷
-        </div> */}
         <div
           className="bg-red-100 canvas-container relative after:content-[''] after:bg-flower-frame  after:absolute after:h-full after:w-full after:bg-contain after:top-0 after:rotate-180 after:z-0"
           style={{
@@ -135,7 +123,14 @@ export default function PhotoBooth() {
             width: '320px',
           }}
         >
-          <img src={url[0]} alt="Screenshot" />
+          <img
+            src={url[0]}
+            alt="Screenshot"
+            style={{
+              height: '240px',
+              width: '320px',
+            }}
+          />
 
           {/* <canvas id="canvas1" width={320} height={228}></canvas> */}
         </div>
@@ -143,7 +138,14 @@ export default function PhotoBooth() {
           className="bg-red-100 canvas-container relative after:content-[''] after:bg-profile-frame  after:absolute after:h-full after:w-full after:bg-contain after:bg-no-repeat after:top-0 after:z-0 before:content-['나랑사진찍을래?ㅎ'] before:w-full before:text-black before:text-xl before:absolute before:left-32 before:top-0 before:z-50"
           style={{ height: '240px', width: '320px' }}
         >
-          <img src={url[1]} alt="Screenshot" />
+          <img
+            src={url[1]}
+            alt="Screenshot"
+            style={{
+              height: '240px',
+              width: '320px',
+            }}
+          />
 
           {/* <canvas id="canvas2" width={320} height={228}></canvas> */}
         </div>
@@ -157,7 +159,14 @@ export default function PhotoBooth() {
             alt="ship"
             className="absolute -bottom-20 -right-6"
           />
-          <img src={url[2]} alt="Screenshot" />
+          <img
+            src={url[2]}
+            alt="Screenshot"
+            style={{
+              height: '240px',
+              width: '320px',
+            }}
+          />
 
           {/* <canvas id="canvas3" width={320} height={228}></canvas> */}
         </div>
