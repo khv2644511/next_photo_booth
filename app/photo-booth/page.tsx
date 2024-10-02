@@ -50,8 +50,8 @@ export default function PhotoBooth() {
   };
 
   const videoConstraints = {
-    width: 1280,
-    height: 720,
+    width: 320,
+    height: 240,
     facingMode: 'user',
   };
 
@@ -72,10 +72,10 @@ export default function PhotoBooth() {
       <>
         <Webcam
           audio={false}
-          height={720}
+          height={240}
           ref={webcamRef}
           screenshotFormat="image/jpeg"
-          width={1280}
+          width={320}
           videoConstraints={videoConstraints}
         />
         <div className="flex gap-10 justify-center my-5">
