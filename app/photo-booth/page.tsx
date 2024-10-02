@@ -138,12 +138,14 @@ export default function PhotoBooth() {
           className="bg-red-100 canvas-container relative after:content-[''] after:bg-profile-frame  after:absolute after:h-full after:w-full after:bg-contain after:bg-no-repeat after:top-0 after:z-0 before:content-['나랑사진찍을래?ㅎ'] before:w-full before:text-black before:text-xl before:absolute before:left-32 before:top-0 before:z-50"
           style={{ height: '240px', width: '320px' }}
         >
-          <img
-            src={url[1]}
+          <div
+            // src={url[1]}
             alt="Screenshot"
             style={{
+              backgroundImage: `url(${url[1]})`,
               height: '240px',
               width: '320px',
+              backgroundSize: 'cover',
             }}
           />
 
