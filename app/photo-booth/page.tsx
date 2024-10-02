@@ -120,7 +120,7 @@ export default function PhotoBooth() {
           onChange={handleRangeChange} // Handle the range change
         />
         <video
-          playsinline
+          playsInline
           ref={videoRef}
           style={{ width: '100%', height: 'auto' }}
         />
