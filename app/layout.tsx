@@ -26,7 +26,7 @@ export default function RootLayout({
           async
           // strategy="beforeInteractive"
         ></script>
-        <Script async>eruda.init();</Script>
+        <script async>eruda.init();</script>
       </Head>
       <body className={`${inter.className} text-white h-full w-dvw bg-red-100`}>
         <NextUIProvider>{children}</NextUIProvider>
