@@ -52,8 +52,10 @@ export default function PhotoBooth() {
   }
   // }, []);
 
-  function onTakePhotoButtonClick() {
+  function onTakePhotoButtonClick(e) {
     console.log('사진촬영버튼 클릭');
+    e.preventDefault();
+
     if (imageCapture && isReady) {
       imageCapture
         .takePhoto({ imageWidth: inputValue })
@@ -144,8 +146,9 @@ export default function PhotoBooth() {
         {/* Video element */}
         <div className="flex gap-2">
           <Button
-            onClick={onTakePhotoButtonClick}
-            onTouchStart={onTakePhotoButtonClick}
+            style={{ touchAction: 'none' }}
+            onClick={(e) => onTakePhotoButtonClick(e)}
+            onTouchStart={(e) => onTakePhotoButtonClick(e)}
             disabled={!isReady}
             className="bg-pink-400 my-5 text-white text-lg font-semibold font-mono w-1/2 mx-auto"
           >
