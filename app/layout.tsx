@@ -21,11 +21,11 @@ export default function RootLayout({
     <html lang="en">
       {/* bg-neutral-900 */}
       <Head>
-        <Script
+        <script
           src="https://cdn.jsdelivr.net/npm/eruda"
           async
           // strategy="beforeInteractive"
-        ></Script>
+        ></script>
         <Script async>eruda.init();</Script>
       </Head>
       <body className={`${inter.className} text-white h-full w-dvw bg-red-100`}>
