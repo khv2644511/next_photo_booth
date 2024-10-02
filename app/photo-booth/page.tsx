@@ -135,23 +135,25 @@ export default function PhotoBooth() {
           {/* <canvas id="canvas1" width={320} height={228}></canvas> */}
         </div>
         <div
-          className="bg-red-100 canvas-container relative after:content-[''] after:bg-profile-frame  after:absolute after:h-full after:w-full after:bg-contain after:bg-no-repeat after:top-0 after:z-0 before:content-['나랑사진찍을래?ㅎ'] before:w-full before:text-black before:text-xl before:absolute before:left-32 before:top-0 before:z-50"
+          className="bg-red-100 canvas-container relative after:content-[''] after:bg-profile-frame  after:absolute after:h-2/3 after:w-2/3 after:bg-contain after:bg-no-repeat after:bottom-0 after:z-0 before:content-['나랑사진찍을래?ㅎ'] before:w-full before:text-black before:text-xl before:absolute before:left-4 before:top-4 before:z-50"
           style={{ height: '320px', width: '320px' }}
         >
-          <img
-            src={url[1]}
-            alt="Screenshot"
-            style={{
-              height: '320px',
-              width: '320px',
-            }}
-            // style={{
-            //   backgroundImage: `url(${url[1]})`,
-            //   height: '320px',
-            //   width: '320px',
-            //   backgroundSize: 'cover',
-            // }}
-          />
+          {url[1] && (
+            <img
+              src={url[1]}
+              alt="Screenshot"
+              style={{
+                height: '320px',
+                width: '320px',
+              }}
+              // style={{
+              //   backgroundImage: `url(${url[1]})`,
+              //   height: '320px',
+              //   width: '320px',
+              //   backgroundSize: 'cover',
+              // }}
+            />
+          )}
 
           {/* <canvas id="canvas2" width={320} height={228}></canvas> */}
         </div>
@@ -165,14 +167,16 @@ export default function PhotoBooth() {
             alt="ship"
             className="absolute -bottom-20 -right-6"
           />
-          <img
-            src={url[2]}
-            alt="Screenshot"
-            style={{
-              height: '320px',
-              width: '320px',
-            }}
-          />
+          {url[2] && (
+            <img
+              src={url[2]}
+              alt="Screenshot"
+              style={{
+                height: '320px',
+                width: '320px',
+              }}
+            />
+          )}
 
           {/* <canvas id="canvas3" width={320} height={228}></canvas> */}
         </div>
