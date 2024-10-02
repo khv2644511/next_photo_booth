@@ -54,7 +54,6 @@ export default function PhotoBooth() {
   function onTakePhotoButtonClick(e) {
     console.log('사진촬영버튼 클릭');
     e.preventDefault();
-
     console.log('imageCapture', imageCapture);
     if (imageCapture && isReady) {
       imageCapture
@@ -74,6 +73,30 @@ export default function PhotoBooth() {
         })
         .catch((error) => console.log(error));
     } else {
+      navigator.mediaDevices
+        .getUserMedia({ video: true, facingMode: { exact: 'user' } })
+        .then((mediaStream) => {
+          if (videoRef.current) {
+            videoRef.current.srcObject = mediaStream; // Set the video source to the media stream
+            videoRef.current.play(); // Play the video
+          }
+
+          const track = mediaStream.getVideoTracks()[0];
+          const newImageCapture = new (window as any).ImageCapture(track); // Create new ImageCapture instance
+          setImageCapture(newImageCapture); // Store the ImageCapture instance
+          return newImageCapture.getPhotoCapabilities();
+        })
+        .then((photoCapabilities) => {
+          setInputValue(photoCapabilities.imageWidth.min);
+          document.querySelector('input[type="range"]').min =
+            photoCapabilities.imageWidth.min;
+          document.querySelector('input[type="range"]').max =
+            photoCapabilities.imageWidth.max;
+          document.querySelector('input[type="range"]').step =
+            photoCapabilities.imageWidth.step;
+          setIsReady(true); // Enable the button when ready
+        })
+        .catch((error) => console.log('Error:', error.name || error));
       console.log('ImageCapture not ready');
     }
   }
