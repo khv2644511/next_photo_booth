@@ -49,6 +49,7 @@ export default function PhotoBooth() {
   // }, []);
 
   function onTakePhotoButtonClick() {
+    console.log('사진촬영버튼 클릭');
     if (imageCapture && isReady) {
       imageCapture
         .takePhoto({ imageWidth: inputValue })
