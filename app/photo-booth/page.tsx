@@ -10,6 +10,8 @@ import Profile from '@/app/assets/profile.png';
 import html2canvas from 'html2canvas';
 import React from 'react';
 import Webcam from 'react-webcam';
+import PullRelease from '../gesture/page';
+import Drag from '@/components/drag';
 
 export default function PhotoBooth() {
   const videoRef = useRef(null) as any;
@@ -90,7 +92,7 @@ export default function PhotoBooth() {
         <div
           ref={container}
           className="container top-1/2 left-0 
-          w-auto h-full bg-black mx-auto p-8 flex flex-col gap-10 overflow-hidden z-20"
+          w-auto h-full bg-black mx-auto p-8 flex flex-col gap-10 z-20"
         >
           <div
             className="bg-red-100 canvas-container relative after:content-[''] after:bg-flower-frame  after:absolute after:h-full after:w-full after:bg-contain after:top-0 after:rotate-180 after:z-0"
@@ -140,12 +142,15 @@ export default function PhotoBooth() {
             className="bg-red-100 canvas-container relative"
             style={{ height: '240px', width: '320px' }}
           >
-            <Image
-              src={ShipImage}
-              width={150}
-              alt="ship"
-              className="absolute -bottom-20 -right-6"
-            />
+            <Drag>
+              <Image
+                src={ShipImage}
+                width={150}
+                alt="ship"
+                className="absolute -bottom-20 -right-6"
+              />
+            </Drag>
+
             {!url[2] && url[1] && <WebcamCapture />}
 
             {url[2] && (
