@@ -95,13 +95,15 @@ export default function PhotoBooth() {
           w-auto h-full bg-black mx-auto p-8 flex flex-col gap-10 z-20"
         >
           <div
-            className="bg-red-100 canvas-container relative after:content-[''] after:bg-flower-frame  after:absolute after:h-full after:w-full after:bg-contain after:top-0 after:rotate-180 after:z-0"
+            // after:content-[''] after:bg-flower-frame  after:absolute after:h-full after:w-full after:bg-contain after:top-0 after:rotate-180 after:z-0
+            className="bg-red-100 canvas-container relative"
             style={{
               height: '240px',
               width: '320px',
             }}
           >
             {!url[0] && <WebcamCapture />}
+            {/* <Drag props="panda-img" /> */}
 
             <img
               src={url[0]}
@@ -116,12 +118,19 @@ export default function PhotoBooth() {
             />
           </div>
           <div
-            className="bg-red-100 canvas-container relative after:content-[''] after:bg-profile-frame  after:absolute after:h-2/3 after:w-2/3 after:bg-contain after:bg-no-repeat after:bottom-0 after:z-0 before:content-['나랑사진찍을래?ㅎ'] before:w-full before:text-black before:text-xl before:absolute before:left-4 before:top-4 before:z-50"
+            // before:content-['나랑사진찍을래?ㅎ'] before:w-full before:text-black before:text-xl before:absolute before:left-4 before:top-4 before:z-50
+            className="bg-red-100 canvas-container relative"
+            // after:content-[''] after:bg-profile-frame  after:absolute after:h-2/3 after:w-2/3 after:bg-contain after:bg-no-repeat after:bottom-0 after:z-0 "
             style={{
               height: '240px',
               width: '320px',
             }}
           >
+            {/* <Drag props="profile-frame" /> */}
+            <Drag props="ship-img" />
+            <Drag props="ship-img" />
+            <Drag props="ship-img" />
+
             {!url[1] && url[0] && <WebcamCapture />}
 
             {url[1] && (
@@ -142,16 +151,8 @@ export default function PhotoBooth() {
             className="bg-red-100 canvas-container relative"
             style={{ height: '240px', width: '320px' }}
           >
-            <Drag>
-              <Image
-                src={ShipImage}
-                width={150}
-                alt="ship"
-                className="absolute -bottom-20 -right-6"
-              />
-            </Drag>
-
             {!url[2] && url[1] && <WebcamCapture />}
+            {/* <Drag props="ship-img" /> */}
 
             {url[2] && (
               <img

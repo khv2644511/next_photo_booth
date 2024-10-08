@@ -10,16 +10,20 @@ export default function Drag(props: any) {
     api.start({ x, y });
   });
 
+  console.log(props.props);
   return (
     <animated.div
+      className={`bg-${props.props} w-5 h-5 bg-contain z-100 absolute`}
       {...bind()}
       style={{
         x,
         y,
+        width: 150,
+        height: 150,
+        borderRadius: 8,
         touchAction: 'none',
+        zIndex: 1000,
       }}
-    >
-      {props.children}
-    </animated.div>
+    />
   );
 }

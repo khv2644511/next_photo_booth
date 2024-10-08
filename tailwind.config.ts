@@ -12,7 +12,10 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
+        'panda-img': 'url(./assets/panda.png)',
         'ship-img': 'url(./assets/ship.png)',
+        'elephant-img': 'url(./assets/elephant.png)',
+        'pig-img': 'url(./assets/pig.png)',
         'flower-frame': 'url(./assets/flowerFrame.png)',
         'profile-frame': 'url(./assets/profile.png)',
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

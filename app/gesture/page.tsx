@@ -16,39 +16,24 @@ export default function PullRelease() {
 
   // Bind it to a component
   return (
-    <div className="h-dvh">
-      <animated.div
-        className="bg-ship-img bg-contain z-50"
-        {...bind()}
-        style={{
-          x,
-          y,
-          width: 150,
-          height: 150,
-          //   background: '#ff6d6d',
-          borderRadius: 8,
-          touchAction: 'none',
-          //   backgroundRepeat: 'no-repeat',
-          //   backgroundSize: 'contain',
-          zIndex: 1000,
-        }}
-      />
-      {/* <animated.div
-        className="bg-ship-img bg-contain z-50"
-        {...bind2()}
-        style={{
-          x,
-          y,
-          width: 150,
-          height: 150,
-          //   background: '#ff6d6d',
-          borderRadius: 8,
-          touchAction: 'none',
-          //   backgroundRepeat: 'no-repeat',
-          //   backgroundSize: 'contain',
-          zIndex: 1000,
-        }}
-      /> */}
-    </div>
+    // <div className="h-dvh">
+    <animated.div
+      className="bg-ship-img bg-contain z-50"
+      {...bind()}
+      style={{
+        x,
+        y,
+        width: 150,
+        height: 150,
+        //   background: '#ff6d6d',
+        borderRadius: 8,
+        touchAction: 'none',
+        //   backgroundRepeat: 'no-repeat',
+        //   backgroundSize: 'contain',
+        zIndex: 1000,
+      }}
+    />
+
+    // </div>
   );
 }
