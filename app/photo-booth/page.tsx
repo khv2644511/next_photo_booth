@@ -86,12 +86,7 @@ export default function PhotoBooth() {
 
   return (
     <>
-      <div className="flex flex-col self-center justify-center">
-        {/* <div className="w-full h-20 bg-black fixed bottom-0"></div> */}
-        <div className="w-80 flex flex-col justify-center self-center ml-10 mt-20">
-          <WebcamCapture />
-        </div>
-
+      <div className="flex flex-col self-center justify-center pb-24">
         <div
           ref={container}
           className="container top-1/2 left-0 
@@ -100,39 +95,50 @@ export default function PhotoBooth() {
           <div
             className="bg-red-100 canvas-container relative after:content-[''] after:bg-flower-frame  after:absolute after:h-full after:w-full after:bg-contain after:top-0 after:rotate-180 after:z-0"
             style={{
-              height: '320px',
+              height: '240px',
               width: '320px',
             }}
           >
+            {!url[0] && <WebcamCapture />}
+
             <img
               src={url[0]}
               alt="Screenshot"
               style={{
-                height: '320px',
+                height: '240px',
                 width: '320px',
+                transform: 'rotate(0, 180deg)',
+                '-webkit-transform': 'rotateY(180deg)', // Safari and Chrome
+                '-moz-transform': 'rotateY(180deg)', // Firefox
               }}
             />
-
-            {/* <canvas id="canvas1" width={320} height={228}></canvas> */}
           </div>
           <div
             className="bg-red-100 canvas-container relative after:content-[''] after:bg-profile-frame  after:absolute after:h-2/3 after:w-2/3 after:bg-contain after:bg-no-repeat after:bottom-0 after:z-0 before:content-['나랑사진찍을래?ㅎ'] before:w-full before:text-black before:text-xl before:absolute before:left-4 before:top-4 before:z-50"
-            style={{ height: '320px', width: '320px' }}
+            style={{
+              height: '240px',
+              width: '320px',
+            }}
           >
+            {!url[1] && url[0] && <WebcamCapture />}
+
             {url[1] && (
               <img
                 src={url[1]}
                 alt="Screenshot"
                 style={{
-                  height: '320px',
+                  height: '240px',
                   width: '320px',
+                  transform: 'rotate(0, 180deg)',
+                  '-webkit-transform': 'rotateY(180deg)', // Safari and Chrome
+                  '-moz-transform': 'rotateY(180deg)', // Firefox
                 }}
               />
             )}
           </div>
           <div
             className="bg-red-100 canvas-container relative"
-            style={{ height: '320px', width: '320px' }}
+            style={{ height: '240px', width: '320px' }}
           >
             <Image
               src={ShipImage}
@@ -140,18 +146,21 @@ export default function PhotoBooth() {
               alt="ship"
               className="absolute -bottom-20 -right-6"
             />
+            {!url[2] && url[1] && <WebcamCapture />}
+
             {url[2] && (
               <img
                 src={url[2]}
                 alt="Screenshot"
                 style={{
-                  height: '320px',
+                  height: '240px',
                   width: '320px',
+                  transform: 'rotate(0, 180deg)',
+                  '-webkit-transform': 'rotateY(180deg)', // Safari and Chrome
+                  '-moz-transform': 'rotateY(180deg)', // Firefox
                 }}
               />
             )}
-
-            {/* <canvas id="canvas3" width={320} height={228}></canvas> */}
           </div>
           <div className="flex justify-center py-9 text-3xl">
             혜빈이의 인생세컷
