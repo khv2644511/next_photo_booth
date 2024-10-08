@@ -12,6 +12,7 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
+        'ship-img': 'url(./assets/ship.png)',
         'flower-frame': 'url(./assets/flowerFrame.png)',
         'profile-frame': 'url(./assets/profile.png)',
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
