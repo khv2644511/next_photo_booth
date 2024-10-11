@@ -12,7 +12,21 @@ import React from 'react';
 import Webcam from 'react-webcam';
 import PullRelease from '../gesture/page';
 import Drag from '@/components/drag';
+import panda from '@/app/assets/panda.png';
+import ship from '@/app/assets/ship.png';
+import elephant from '@/app/assets/elephant.png';
+import pig from '@/app/assets/pig.png';
+import profile from '@/app/assets/profile.png';
 
+// const getRandomPosition = (xy: string) => {
+//   if (xy === 'x') {
+//     const x = Math.floor(Math.random() * (window.innerWidth / 3 - 100)) + 50;
+//     return x;
+//   } else {
+//     const y = Math.floor(Math.random() * 500) + 50;
+//     return y;
+//   }
+// };
 export default function PhotoBooth() {
   const videoRef = useRef(null) as any;
   const [imageCapture, setImageCapture] = useState(null);
@@ -89,11 +103,30 @@ export default function PhotoBooth() {
   return (
     <>
       <div className="flex flex-col self-center justify-center pb-24">
+        <div className="ml-5 text-black text-2xl md:absolute md:top-10">
+          <div>스티커를 프레임으로 끌어당겨 직접 꾸며보세요😊</div>
+        </div>
         <div
           ref={container}
           className="container top-1/2 left-0 
           w-auto h-full bg-black mx-auto p-8 flex flex-col gap-10 z-20"
         >
+          <Drag props={panda.src} top={100} left={100} />
+
+          <Drag props={panda.src} top={100} left={200} />
+
+          <Drag props={ship.src} top={200} left={300} />
+          <Drag props={ship.src} top={200} left={400} />
+          <Drag props={pig.src} top={300} left={300} />
+          <Drag props={pig.src} top={300} left={200} />
+          <Drag props={profile.src} top={400} left={200} />
+          <Drag props={profile.src} top={400} left={80} />
+
+          {/* <Drag
+            props={pig.src}
+            top={getRandomPosition('y')}
+            left={getRandomPosition('x')}
+          /> */}
           <div
             // after:content-[''] after:bg-flower-frame  after:absolute after:h-full after:w-full after:bg-contain after:top-0 after:rotate-180 after:z-0
             className="bg-red-100 canvas-container relative"
@@ -103,19 +136,24 @@ export default function PhotoBooth() {
             }}
           >
             {!url[0] && <WebcamCapture />}
-            {/* <Drag props="panda-img" /> */}
 
-            <img
-              src={url[0]}
-              alt="Screenshot"
-              style={{
-                height: '240px',
-                width: '320px',
-                transform: 'rotate(0, 180deg)',
-                '-webkit-transform': 'rotateY(180deg)', // Safari and Chrome
-                '-moz-transform': 'rotateY(180deg)', // Firefox
-              }}
-            />
+            {url[0] && (
+              <img
+                src={url[0]}
+                alt="Screenshot"
+                style={{
+                  height: '240px',
+                  width: '320px',
+                  transform: 'rotate(0, 180deg)',
+                  '-webkit-transform': 'rotateY(180deg)', // Safari and Chrome
+                  '-moz-transform': 'rotateY(180deg)', // Firefox
+                  // 'text-indent': '100%',
+                  // 'white-space': 'nowrap',
+                  // overflow: 'hidden',
+                  textIndent: '-100vw',
+                }}
+              />
+            )}
           </div>
           <div
             // before:content-['나랑사진찍을래?ㅎ'] before:w-full before:text-black before:text-xl before:absolute before:left-4 before:top-4 before:z-50
@@ -127,9 +165,6 @@ export default function PhotoBooth() {
             }}
           >
             {/* <Drag props="profile-frame" /> */}
-            <Drag props="ship-img" />
-            <Drag props="ship-img" />
-            <Drag props="ship-img" />
 
             {!url[1] && url[0] && <WebcamCapture />}
 
@@ -152,7 +187,6 @@ export default function PhotoBooth() {
             style={{ height: '240px', width: '320px' }}
           >
             {!url[2] && url[1] && <WebcamCapture />}
-            {/* <Drag props="ship-img" /> */}
 
             {url[2] && (
               <img

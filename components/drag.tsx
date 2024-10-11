@@ -1,6 +1,6 @@
 'use client';
 
-import { useSpring, animated } from '@react-spring/web';
+import { useSpring, animated, useTransition } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
 
 export default function Drag(props: any) {
@@ -10,20 +10,44 @@ export default function Drag(props: any) {
     api.start({ x, y });
   });
 
-  console.log(props.props);
-  return (
+  const data = [1];
+  const transitions = useTransition(data, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 1 },
+  });
+
+  return transitions((style, item) => (
     <animated.div
-      className={`bg-${props.props} w-5 h-5 bg-contain z-100 absolute`}
+      className={`bg-contain z-100 absolute`}
       {...bind()}
       style={{
         x,
         y,
-        width: 150,
-        height: 150,
+        width: '100px',
+        height: '100px',
         borderRadius: 8,
         touchAction: 'none',
         zIndex: 1000,
+        top: `${props.top}px`,
+        left: `${props.left}px`,
+        background: `url(${props.props})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: '100%',
+        ...style,
       }}
     />
-  );
+  ));
+}
+
+function MyComponent({ data = [1, 2, 3] }) {
+  const transitions = useTransition(data, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 1 },
+  });
+
+  return transitions((style, item) => (
+    <animated.div style={style}>{item}</animated.div>
+  ));
 }
