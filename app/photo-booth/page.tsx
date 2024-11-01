@@ -103,7 +103,7 @@ export default function PhotoBooth() {
   return (
     <>
       <div className="flex flex-col self-center justify-center pb-24">
-        <div className="ml-5 text-black text-2xl md:absolute md:top-10">
+        <div className="ml-5 my-8 text-black text-xl md:absolute md:top-10">
           <div>스티커를 프레임으로 끌어당겨 직접 꾸며보세요😊</div>
         </div>
         <div
