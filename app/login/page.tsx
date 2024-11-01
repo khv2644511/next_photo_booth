@@ -34,8 +34,8 @@ export default function Login() {
   // form 의 상태에 따라 변경하고자 하는 component 내부에서 사용해야 함
   // const { pending } = useFormStatus(); 동일한 컴포넌트 내에서 사용할 수 없음
   return (
-    <div className="flex flex-col gap-10 py-8 px-6">
-      <div className="flex flex-col gap-2 *:font-medium">
+    <div className="flex flex-col gap-10 py-8 px-6 h-dvh">
+      <div className="flex flex-col gap-2 *:font-medium *:text-black">
         <h1 className="text-2xl">안녕하세요!</h1>
         <h2 className="text-xl">Login in with email and password.</h2>
       </div>

@@ -1,9 +1,13 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { NextUIProvider } from '@nextui-org/react';
-import Script from 'next/script';
-import Head from 'next/head';
+import {
+  Navbar,
+  NextUIProvider,
+  NavbarItem,
+  NavbarBrand,
+} from '@nextui-org/react';
+import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,17 +23,30 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* bg-neutral-900 */}
-      <Head>
-        <script
-          src="https://cdn.jsdelivr.net/npm/eruda"
-          async
-          // strategy="beforeInteractive"
-        ></script>
-        <script async>eruda.init();</script>
-      </Head>
       <body className={`${inter.className} text-white h-full w-dvw bg-red-100`}>
-        <NextUIProvider>{children}</NextUIProvider>
+        <NextUIProvider>
+          <Navbar>
+            <NavbarBrand>
+              <p className="font-bold text-inherit">ACME</p>
+            </NavbarBrand>
+            <NavbarItem>
+              <Link color="foreground" href="/">
+                home
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link color="foreground" href="/photo-booth">
+                photo-booth
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link color="foreground" href="/CalendarPage">
+                Calendar
+              </Link>
+            </NavbarItem>
+          </Navbar>
+          {children}
+        </NextUIProvider>
       </body>
     </html>
   );

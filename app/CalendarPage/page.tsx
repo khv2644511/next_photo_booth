@@ -3,7 +3,7 @@
 import Calendar from '@/components/calendar';
 import { Button } from '@nextui-org/react';
 
-export default function Home() {
+export default function CalendarPage() {
   return (
     <div className="flex flex-col gap-10 py-8 px-6">
       <Calendar />
