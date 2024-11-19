@@ -34,4 +34,4 @@ CREATE UNIQUE INDEX "User_phone_key" ON "User"("phone");
 CREATE UNIQUE INDEX "User_github_id_key" ON "User"("github_id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "SMSToken_token_key" ON "SMSToken"("token");
+-- CREATE UNIQUE INDEX "SMSToken_token_key" ON "SMSToken"("token");
