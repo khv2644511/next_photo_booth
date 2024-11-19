@@ -3,10 +3,10 @@ import './lib/db';
 import Image from 'next/image';
 
 export default async function Home() {
-  const res = await fetch('http://localhost:3000/api/users');
-  const data = await res.json();
+  // const res = await fetch('http://localhost:3000/api/users');
+  // const data = await res.json();
 
-  console.log(data);
+  // console.log(data);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6">
       <div className="my-auto flex flex-col items-center gap-2 *:font-medium *:text-black">
@@ -16,7 +16,7 @@ export default async function Home() {
           Welcome to hyeppy's photo booth 😊
         </h2>
         {/* <div>{data}</div> */}
-        <Image src={data[0].image} alt="dd" width={100} height={100} />
+        {/* <Image src={data[0].image} alt="dd" width={100} height={100} /> */}
         <h2 className="text-md sm:text-2xl">
           Do you want to take photo with me? 📸
         </h2>

@@ -3,33 +3,36 @@ import { PrismaClient } from '@prisma/client';
 const db = new PrismaClient();
 
 // async function test() {
-//   const token = await db.sMSToken.create({
-//     data: {
-//       token: '12342123',
-//       user: {
-//         connect: {
-//           id: 3,
-//         },
-//       },
+//   const token = await db.sMSToken.findUnique({
+//     where: {
+//       id: 1,
+//     },
+//     include: {
+//       user: true,
 //     },
 //   });
 
-//   console.log(token);
+//   console.log(token, 'token');
 // }
 
-async function test() {
-  const token = await db.sMSToken.findUnique({
-    where: {
-      id: 1,
-    },
-    include: {
-      user: true,
-    },
-  });
+// test();
 
-  console.log(token);
-}
+// async function main() {
+//   const post = await db.user.update({
+//     where: { id: 6 },
+//     data: { phone: '01011221233' },
+//   });
+//   console.log(post);
+// }
 
-test();
+// main()
+//   .then(async () => {
+//     await db.$disconnect();
+//   })
+//   .catch(async (e) => {
+//     console.error(e);
+//     await db.$disconnect();
+//     process.exit(1);
+//   });
 
 export default db;
