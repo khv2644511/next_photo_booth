@@ -23,28 +23,32 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} text-white h-full w-dvw bg-red-100`}>
+      <body
+        className={`${inter.className} text-white h-full w-full bg-red-100`}
+      >
         <NextUIProvider>
-          <Navbar>
-            <NavbarBrand>
-              <p className="font-bold text-inherit">ACME</p>
-            </NavbarBrand>
-            <NavbarItem>
-              <Link color="foreground" href="/">
-                home
-              </Link>
-            </NavbarItem>
-            <NavbarItem>
-              <Link color="foreground" href="/photo-booth">
-                photo-booth
-              </Link>
-            </NavbarItem>
-            <NavbarItem>
-              <Link color="foreground" href="/CalendarPage">
-                Calendar
-              </Link>
-            </NavbarItem>
-          </Navbar>
+          <div className="absolute w-full">
+            <Navbar>
+              <NavbarBrand>
+                <p className="font-bold text-inherit">ACME</p>
+              </NavbarBrand>
+              <NavbarItem>
+                <Link color="foreground" href="/">
+                  home
+                </Link>
+              </NavbarItem>
+              <NavbarItem>
+                <Link color="foreground" href="/photo-booth">
+                  photo-booth
+                </Link>
+              </NavbarItem>
+              <NavbarItem>
+                <Link color="foreground" href="/CalendarPage">
+                  Calendar
+                </Link>
+              </NavbarItem>
+            </Navbar>
+          </div>
           {children}
         </NextUIProvider>
       </body>
